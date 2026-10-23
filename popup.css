@@ -1,41 +1,42 @@
-body { width: 320px; }
-
-.pop { padding: 16px; }
+body { width: 330px; }
 
 .pop-top {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-  font-size: 15px;
-  letter-spacing: -0.01em;
+  gap: 11px;
+  padding: 14px 16px;
+  border-bottom: 4px solid var(--ink);
+  background: var(--yellow);
+  font: 900 16px/1.1 var(--display);
+  letter-spacing: -0.02em;
 }
-.pop-top img { border-radius: 8px; }
+.pop-top img { display: block; flex: none; }
 
-.block { display: grid; gap: 14px; }
+.block { display: grid; gap: 16px; padding: 22px 18px 24px; }
 .block[hidden] { display: none; }
 
-.block h1 { font-size: 19px; letter-spacing: -0.015em; }
-.block p  { color: var(--muted); font-size: 14px; }
+.block h1 { font-size: 40px; line-height: 0.95; letter-spacing: -0.04em; }
+.block p  { font-size: 15px; font-weight: 600; }
 
-.wide { justify-content: center; width: 100%; padding: 12px 16px; }
+.wide { justify-content: center; width: 100%; padding: 16px; font-size: 16px; }
 
-.quota { display: grid; gap: 8px; }
-.quota-text { display: flex; align-items: baseline; gap: 8px; }
-.quota-text strong { font-size: 30px; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-.quota-text span { color: var(--muted); font-size: 14px; }
+.quota { display: grid; gap: 12px; }
+.quota-text { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 10px; }
+.quota-text strong { font: 900 64px/0.95 var(--display); letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+.quota-text span { font-weight: 700; font-size: 14px; }
 
-.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.pair .btn { justify-content: center; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding-top: 4px; }
+.pair .btn { justify-content: center; padding-left: 10px; padding-right: 10px; }
 
 .pop-foot {
   display: flex;
   justify-content: space-between;
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 12.5px;
+  padding: 11px 16px;
+  border-top: 4px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13px;
+  font-weight: 700;
 }
-.pop-foot a { color: var(--muted); }
-.pop-foot a:hover { color: var(--text); }
+.pop-foot a { color: var(--yellow); }
+.pop-foot a:hover { background: var(--yellow); color: var(--ink); }

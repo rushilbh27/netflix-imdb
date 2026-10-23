@@ -2,6 +2,7 @@ const $ = (id) => document.getElementById(id);
 
 const els = {
   pill: $('pill'),
+  hero: $('hero'),
   ready: $('ready'),
   setup: $('setup'),
   setupSummary: $('setupSummary'),
@@ -86,6 +87,7 @@ function render(hasKey) {
   els.pill.textContent = hasKey ? 'Ratings are on' : 'Needs a key';
 
   els.ready.hidden = !hasKey;
+  els.hero.hidden = hasKey;
   for (const id of ['step1', 'step2', 'step3']) {
     const step = $(id);
     if (hasKey) step.setAttribute('data-done', '');

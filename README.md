@@ -125,12 +125,12 @@ Open a title to see all three scores together in a panel above its details.
 
 | Badge | Meaning |
 |---|---|
-| ★ 8.4 (green star) | Great. 7.5 and up. |
-| ★ 6.8 (yellow star) | Decent. 6.0 to 7.4. |
-| ★ 5.1 (orange star) | Weak. Under 6.0. |
-| ★ N/A | Matched correctly, but IMDb has no rating yet. Common for brand new titles. |
-| `?` (dashed) | Not sure which IMDb title this is. Click to search IMDb yourself. |
-| Yellow **Set up** | No key saved yet. Click to open setup. |
+| Green **★ 8.4** | Great. 7.5 and up. |
+| Yellow **★ 6.8** | Decent. 6.0 to 7.4. |
+| Red **★ 5.1** | Weak. Under 6.0. |
+| Grey **★ N/A** | Matched correctly, but IMDb has no rating yet. Common for brand new titles. |
+| White **?** | Not sure which IMDb title this is. Click to search IMDb yourself. |
+| Black **★ Set up** | No key saved yet. Click to open setup. |
 
 ---
 
@@ -188,7 +188,7 @@ The approach here:
    actually knows it as
 2. Query OMDb, with the year when the page gives one, retrying without it on a miss
 3. Score the returned title against the Netflix title using bigram (Dice) similarity
-4. **Below 0.6, refuse to show a rating.** The badge turns into a dashed `?` that links to
+4. **Below 0.6, refuse to show a rating.** The badge turns into a white `?` that links to
    an IMDb search
 
 A `?` means "I'm not confident this is the right title", not "this title has no rating".
@@ -203,7 +203,9 @@ OMDb's free tier allows 1,000 lookups a day. In practice you will not get near i
 - Identical in-flight lookups are deduplicated
 - The worker stops itself at 950 a day, and stops asking when OMDb says the limit is hit
 
-The extension's toolbar popup shows how many you have left today.
+The toolbar popup shows how many you have left today.
+
+<img src="docs/popup.png" alt="The toolbar popup: Ratings are on, 612 of 950 lookups left today" width="330">
 
 ---
 
@@ -233,8 +235,8 @@ If you fix it, please open a PR. That is the main way this stays alive.
 
 | What you see | What to do |
 |---|---|
-| Yellow **Set up** badges | No key saved yet. Click one to open setup. |
-| Yellow **Fix key** badges | OMDb rejected the key. Make sure you clicked the activation link in the email, then paste it again. |
+| Black **Set up** badges | No key saved yet. Click one to open setup. |
+| Black **Fix key** badges | OMDb rejected the key. Make sure you clicked the activation link in the email, then paste it again. |
 | Setup says "OMDb doesn't recognise that key" | Almost always an un-clicked activation link. Click it, then save again. |
 | Setup says "That's the activation code" | You copied the code after `VERIFYKEY=`. Copy the 8 characters after *Here is your key:* instead. |
 | No email from OMDb | Check spam. Outlook, Hotmail and Yahoo can take up to an hour. Trying again with a Gmail address is quickest. |

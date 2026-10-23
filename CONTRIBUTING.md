@@ -55,6 +55,21 @@ Test with non-English and regional titles too — that is where matching is weak
 Match what is there. Plain JS, no frameworks, no dependencies. Comments explain *why*, not
 *what*. Keep `SELECTORS` as the only place Netflix specifics live.
 
+## Look and feel
+
+The UI is neo-brutalist, on purpose, and it is one system across the setup page, the
+popup and everything injected into Netflix. Keep to it:
+
+- Flat colour only: ink `#111`, paper `#fffdf5`, yellow `#ffd500`, tomato `#ff5a3d`,
+  green `#2fd47a`. No gradients, no blur, no glass, no soft shadows.
+- 3px ink borders, square corners, hard offset shadows with zero blur.
+- Buttons sit on their shadow and press into it (`translate` on hover and active).
+- On Netflix's dark UI a black shadow vanishes, so floating pieces use a yellow or white one.
+- System fonts only (`Arial Black` for display). An extension page should not fetch a font.
+- Tilt only small stickers, never text blocks.
+
+`dev/mock-netflix.html` and `dev/preview.html` are the fastest way to check a change.
+
 ## Scope
 
 Welcome:

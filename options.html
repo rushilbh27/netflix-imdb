@@ -13,29 +13,54 @@
 <div class="page">
 
   <header class="top">
-    <img class="logo" src="icons/icon48.png" width="44" height="44" alt="">
-    <div class="title">
-      <h1>Netflix IMDb Ratings</h1>
-      <p>Ratings on every title, before you press play.</p>
+    <div class="brand">
+      <img class="logo" src="icons/icon48.png" width="48" height="48" alt="">
+      <span class="wordmark">Netflix IMDb Ratings</span>
     </div>
     <div id="pill" class="pill" role="status">Checking</div>
   </header>
 
-  <section id="ready" class="ready" hidden>
-    <div class="ready-head">
-      <span class="ready-mark" aria-hidden="true">✓</span>
-      <div>
-        <h2>Ratings are on</h2>
-        <p>Open Netflix and look for the badge at the bottom-left of each title. Open a title to see IMDb, Rotten Tomatoes and Metacritic together.</p>
+  <section id="hero" class="hero">
+    <div class="hero-copy">
+      <h1>See the score before you press play.</h1>
+      <p>Netflix hides IMDb ratings. This puts them back on every title. Setup is one free key and takes about a minute.</p>
+    </div>
+    <div class="hero-demo" aria-hidden="true">
+      <div class="poster poster-back nfimdb-host">
+        <span class="poster-title">Cold Open</span>
+        <a class="nfimdb-badge nfimdb-bad" tabindex="-1"><span class="nfimdb-star">★</span><span class="nfimdb-score">4.4</span></a>
+      </div>
+      <div class="poster poster-front nfimdb-host">
+        <span class="poster-title">Midnight Orchard</span>
+        <a class="nfimdb-badge nfimdb-good" tabindex="-1"><span class="nfimdb-star">★</span><span class="nfimdb-score">8.7</span></a>
       </div>
     </div>
+  </section>
+
+  <section id="ready" class="ready" hidden>
+    <h1>Ratings are on.</h1>
+    <p>Open Netflix and look for a badge at the bottom-left of each title. Open a title to see IMDb, Rotten Tomatoes and Metacritic together.</p>
+
     <ul class="legend" aria-label="What the badges mean">
-      <li><a class="nfimdb-badge nfimdb-good" tabindex="-1"><span class="nfimdb-star">★</span><span class="nfimdb-score">8.4</span></a><span>Great, 7.5 and up</span></li>
-      <li><a class="nfimdb-badge nfimdb-ok" tabindex="-1"><span class="nfimdb-star">★</span><span class="nfimdb-score">6.8</span></a><span>Decent, 6.0 to 7.4</span></li>
-      <li><a class="nfimdb-badge nfimdb-bad" tabindex="-1"><span class="nfimdb-star">★</span><span class="nfimdb-score">5.1</span></a><span>Weak, under 6.0</span></li>
-      <li><a class="nfimdb-badge nfimdb-uncertain" tabindex="-1"><span class="nfimdb-score">?</span></a><span>Not sure which title this is. Click to search IMDb.</span></li>
+      <li>
+        <div class="swatch nfimdb-host"><a class="nfimdb-badge nfimdb-good" tabindex="-1"><span class="nfimdb-star">★</span><span class="nfimdb-score">8.4</span></a></div>
+        <span>Great. 7.5 and up.</span>
+      </li>
+      <li>
+        <div class="swatch nfimdb-host"><a class="nfimdb-badge nfimdb-ok" tabindex="-1"><span class="nfimdb-star">★</span><span class="nfimdb-score">6.8</span></a></div>
+        <span>Decent. 6.0 to 7.4.</span>
+      </li>
+      <li>
+        <div class="swatch nfimdb-host"><a class="nfimdb-badge nfimdb-bad" tabindex="-1"><span class="nfimdb-star">★</span><span class="nfimdb-score">5.1</span></a></div>
+        <span>Weak. Under 6.0.</span>
+      </li>
+      <li>
+        <div class="swatch nfimdb-host"><a class="nfimdb-badge nfimdb-uncertain" tabindex="-1"><span class="nfimdb-score">?</span></a></div>
+        <span>Not sure which title this is. Click to search IMDb.</span>
+      </li>
     </ul>
-    <a class="btn btn-primary" href="https://www.netflix.com/" target="_blank" rel="noreferrer">Open Netflix <svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a>
+
+    <a class="btn btn-ink" href="https://www.netflix.com/" target="_blank" rel="noreferrer">Open Netflix <svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a>
   </section>
 
   <details id="setup" class="setup" open>
@@ -48,24 +73,28 @@
         <div class="body">
           <h2>Get a free key from OMDb</h2>
           <p>OMDb is the open movie database that supplies the ratings. A key is free, personal to you, and takes about a minute.</p>
-          <p><a class="btn btn-primary" href="https://www.omdbapi.com/apikey.aspx" target="_blank" rel="noreferrer">Open the OMDb sign-up page <svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a></p>
-          <p class="lead">On that page, fill in the form like this:</p>
+          <p><a class="btn btn-yellow" href="https://www.omdbapi.com/apikey.aspx" target="_blank" rel="noreferrer">Open the OMDb sign-up page <svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a></p>
+
+          <p class="lead">Fill in their form like this:</p>
           <dl class="form-guide">
-            <div class="warn-row">
+            <div class="row hot">
               <dt>Account type</dt>
-              <dd>Choose <mark>FREE! (1,000 daily limit)</mark>. The page starts on <em>Patreon</em>, which is the paid option, so switch it.</dd>
+              <dd>
+                <mark>FREE! (1,000 daily limit)</mark>
+                <span class="sticker sticker-tomato">It starts on Patreon (paid). Switch it.</span>
+              </dd>
             </div>
-            <div>
+            <div class="row">
               <dt>Email</dt>
-              <dd>Use a Gmail address if you can. OMDb says Outlook, Hotmail and Yahoo mail can take up to an hour to arrive.</dd>
+              <dd>Gmail is fastest. Outlook, Hotmail and Yahoo can take up to an hour to arrive.</dd>
             </div>
-            <div>
-              <dt>First name, last name</dt>
+            <div class="row">
+              <dt>First and last name</dt>
               <dd>Anything works.</dd>
             </div>
-            <div>
+            <div class="row">
               <dt>Use</dt>
-              <dd>Type <code>personal browser extension</code>.</dd>
+              <dd>Type <code>personal browser extension</code></dd>
             </div>
           </dl>
           <p>Then press <strong>Submit</strong>.</p>
@@ -76,14 +105,21 @@
         <span class="num" aria-hidden="true">2</span>
         <div class="body">
           <h2>Activate it, then copy the key</h2>
-          <p>An email from <strong>The OMDb API</strong> arrives, usually within a minute. Click the activation link in it first, because the key won't work until you do. Then copy the 8 letters and numbers after <em>Here is your key:</em></p>
+          <p>An email from <strong>The OMDb API</strong> arrives, usually within a minute. Click the activation link first, because the key won't work until you do. Then copy the 8 letters and numbers after <em>Here is your key:</em></p>
+
           <figure class="mail">
             <div class="mail-bar"><span>The OMDb API</span><span>API Key</span></div>
             <div class="mail-body">
-              <p class="row"><span>Here is your key: <b class="key">a1b2c3d4</b></span><span class="tag tag-copy">Copy this</span></p>
+              <p class="row">
+                <span>Here is your key: <b class="key">a1b2c3d4</b></span>
+                <span class="sticker sticker-green">Copy this</span>
+              </p>
               <p class="row dim"><span>Please append it to all of your API requests,</span></p>
               <p class="row"><span>Click the following URL to activate your key:</span></p>
-              <p class="row"><span class="fake-link">http://www.omdbapi.com/apikey.aspx?VERIFYKEY=…</span><span class="tag tag-click">Click this first</span></p>
+              <p class="row">
+                <span class="fake-link">http://www.omdbapi.com/apikey.aspx?VERIFYKEY=…</span>
+                <span class="sticker sticker-ink">Click this first</span>
+              </p>
             </div>
             <figcaption>Example only. Your key will be different.</figcaption>
           </figure>
@@ -94,7 +130,7 @@
         <span class="num" aria-hidden="true">3</span>
         <div class="body">
           <h2>Paste it here</h2>
-          <p>Paste the key below. You can paste the whole line from the email too, and it will pick the key out.</p>
+          <p>Paste the key below. You can paste the whole line from the email, or the whole email, and it picks the key out.</p>
 
           <form id="form" class="ticket" data-state="idle" novalidate>
             <div class="ticket-main">
@@ -126,7 +162,7 @@
 
       <div class="actions">
         <button id="clearCache" class="btn" type="button">Clear saved ratings</button>
-        <button id="removeKey" class="btn btn-quiet" type="button">Remove my key</button>
+        <button id="removeKey" class="btn" type="button">Remove my key</button>
       </div>
       <p id="actionMsg" class="fine" role="status" aria-live="polite"></p>
 
@@ -135,8 +171,10 @@
         <span>Log what the extension is doing to the Netflix page console</span>
       </label>
 
-      <h3>If badges stop showing up</h3>
-      <p>Netflix changes its page layout now and then, and card detection can break until the extension is updated. Turn on logging above, open the console on Netflix, and look for lines starting with <code>[nfimdb]</code>. <a href="https://github.com/rushilbh27/netflix-imdb/issues/new/choose" target="_blank" rel="noreferrer">Report it on GitHub</a> and include what you see.</p>
+      <div class="help">
+        <h3>If badges stop showing up</h3>
+        <p>Netflix changes its page layout now and then, and card detection can break until the extension is updated. Turn on logging above, open the console on Netflix, and look for lines starting with <code>[nfimdb]</code>. <a href="https://github.com/rushilbh27/netflix-imdb/issues/new/choose" target="_blank" rel="noreferrer">Report it on GitHub</a> and include what you see.</p>
+      </div>
     </div>
   </details>
 

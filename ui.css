@@ -1,153 +1,120 @@
-/* Shared by options.html (setup page) and popup.html.
-   System fonts only: an extension page should not fetch a font from anywhere. */
+/* Shared by the setup page and the toolbar popup.
+   Neo-brutalist: flat colour, thick ink borders, hard offset shadows, no blur,
+   no gradients, square corners. System fonts only. */
 
 :root {
-  color-scheme: dark light;
+  color-scheme: light;
 
-  --ink:        #15121b;
-  --surface:    #1e1a27;
-  --surface-2:  #2a2536;
-  --line:       rgba(255, 255, 255, 0.10);
-  --text:       #f3eefb;
-  --muted:      #a79fb8;
+  --ink:    #111111;
+  --paper:  #fffdf5;
+  --yellow: #ffd500;
+  --tomato: #ff5a3d;
+  --green:  #2fd47a;
+  --muted:  #4f4c44;
+  --focus:  #2a59ff;
 
-  --marigold:     #f5c518;
-  --marigold-ink: #241c00;
+  --display: "Arial Black", "Archivo Black", "Helvetica Neue", Impact, sans-serif;
+  --body:    "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --mono:    ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
-  --good: #46d28a;
-  --warn: #ffb020;
-  --bad:  #ff6b4a;
-  --link: #ffd84a;
-  --focus: #8ab4ff;
-
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --ink:       #f6f3fa;
-    --surface:   #ffffff;
-    --surface-2: #ece7f3;
-    --line:      rgba(30, 15, 55, 0.14);
-    --text:      #1b1626;
-    --muted:     #655b78;
-    --good: #12804a;
-    --warn: #a35f00;
-    --bad:  #c2371b;
-    --link: #8a5a00;
-    --focus: #1f5fd1;
-  }
+  --line: 3px solid var(--ink);
 }
 
 * { box-sizing: border-box; }
-
 html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  background: var(--ink);
-  color: var(--text);
-  font: 400 15px/1.55 var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  font: 500 16px/1.5 var(--body);
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, p, ul, ol, figure { margin: 0; }
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; }
 
-a { color: var(--link); text-underline-offset: 3px; }
-a:hover { text-decoration-thickness: 2px; }
+a { color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { background: var(--yellow); }
 
 :focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: 4px solid var(--focus);
+  outline-offset: 3px;
 }
 
-/* ------------------------------------------------------------ buttons */
+mark { background: var(--yellow); color: var(--ink); padding: 0 4px; }
+
+code {
+  padding: 1px 6px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  font: 700 0.88em var(--mono);
+}
+
+/* ------------------------------------------------------------ buttons
+   They sit on a hard shadow and press down into it. */
 
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface-2);
-  color: var(--text);
-  font: 600 14px/1 var(--sans);
+  gap: 10px;
+  padding: 13px 18px;
+  border: var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font: 900 15px/1 var(--display);
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.12s ease, transform 0.05s ease;
+  box-shadow: 5px 5px 0 var(--ink);
+  transition: transform 0.07s ease, box-shadow 0.07s ease;
 }
-.btn:hover { background: color-mix(in srgb, var(--surface-2) 80%, var(--text)); }
-.btn:active { transform: translateY(1px); }
+.btn:hover  { background: var(--paper); transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+.btn:active { transform: translate(5px, 5px); box-shadow: 0 0 0 var(--ink); }
 
-.btn-primary {
-  background: var(--marigold);
-  border-color: transparent;
-  color: var(--marigold-ink);
-}
-.btn-primary:hover { background: #ffd23a; }
+.btn-ink    { background: var(--ink); color: var(--yellow); box-shadow: 5px 5px 0 var(--yellow); }
+.btn-ink:hover  { background: var(--ink); box-shadow: 7px 7px 0 var(--yellow); }
+.btn-ink:active { box-shadow: 0 0 0 var(--yellow); }
+.btn-yellow { background: var(--yellow); }
+.btn-yellow:hover { background: var(--yellow); }
+.btn[disabled] { opacity: 0.5; cursor: default; box-shadow: 5px 5px 0 var(--ink); transform: none; }
 
-.btn-quiet {
-  background: transparent;
-  color: var(--muted);
-}
-.btn-quiet:hover { color: var(--text); background: var(--surface-2); }
+.ext { width: 15px; height: 15px; flex: none; }
 
-.btn[disabled] { opacity: 0.55; cursor: default; }
-
-.ext {
-  width: 13px;
-  height: 13px;
-  flex: none;
-}
-
-/* ------------------------------------------------------------ status pill */
+/* ------------------------------------------------------------ sticker (status) */
 
 .pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px 6px 10px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 600;
+  display: inline-block;
+  padding: 6px 12px;
+  border: var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font: 900 13px/1 var(--display);
+  letter-spacing: 0;
   white-space: nowrap;
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: rotate(-2deg);
 }
-.pill::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--muted);
-}
-.pill[data-tone="ok"]   { color: var(--text); }
-.pill[data-tone="ok"]::before   { background: var(--good); box-shadow: 0 0 0 3px color-mix(in srgb, var(--good) 25%, transparent); }
-.pill[data-tone="warn"] { color: var(--text); }
-.pill[data-tone="warn"]::before { background: var(--warn); box-shadow: 0 0 0 3px color-mix(in srgb, var(--warn) 25%, transparent); }
+.pill[data-tone="ok"]   { background: var(--green); }
+.pill[data-tone="warn"] { background: var(--tomato); color: #fff; }
 
-/* ------------------------------------------------------------ quota meter */
+/* ------------------------------------------------------------ quota bar */
 
 .meter {
-  height: 6px;
-  border-radius: 999px;
-  background: var(--surface-2);
-  overflow: hidden;
+  height: 24px;
+  border: var(--line);
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--ink);
 }
 .meter > span {
   display: block;
   height: 100%;
   width: 0;
-  border-radius: inherit;
-  background: var(--good);
-  transition: width 0.4s ease;
+  background: repeating-linear-gradient(-45deg, var(--green) 0 9px, #1fbf68 9px 18px);
+  border-right: var(--line);
+  transition: width 0.4s steps(8);
 }
-.meter[data-level="mid"] > span { background: var(--warn); }
-.meter[data-level="low"] > span { background: var(--bad); }
+.meter[data-level="mid"] > span { background: repeating-linear-gradient(-45deg, var(--yellow) 0 9px, #f0c400 9px 18px); }
+.meter[data-level="low"] > span { background: repeating-linear-gradient(-45deg, var(--tomato) 0 9px, #ee4426 9px 18px); }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
