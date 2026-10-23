@@ -534,7 +534,7 @@
     toast = document.createElement('div');
     toast.className = 'nfimdb-toast';
     toast.setAttribute('role', 'dialog');
-    toast.setAttribute('aria-label', 'Netflix IMDb Ratings setup');
+    toast.setAttribute('aria-label', 'NoFluff setup');
 
     const mark = document.createElement('div');
     mark.className = 'nfimdb-toast-mark';

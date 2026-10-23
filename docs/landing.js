@@ -31,3 +31,19 @@ cells.forEach((cell) => {
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.cell')) cells.forEach((c) => c.classList.remove('open'));
 });
+
+// Skipping demo: press Skip, get the sticker, then the ad comes back so you can do it again.
+const skPlayer = document.getElementById('skPlayer');
+const skBtn = document.getElementById('skBtn');
+if (skPlayer && skBtn) {
+  skBtn.addEventListener('click', () => {
+    skPlayer.classList.add('skipped');
+    document.getElementById('skTitle').textContent = 'Back to the show.';
+    document.getElementById('skAd').textContent = 'Skipped';
+    setTimeout(() => {
+      skPlayer.classList.remove('skipped');
+      document.getElementById('skTitle').textContent = 'Watch this 30-second ad for a thing you do not need.';
+      document.getElementById('skAd').textContent = 'Ad · Sponsored';
+    }, 2600);
+  });
+}

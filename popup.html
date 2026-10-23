@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Netflix IMDb Ratings</title>
+<title>NoFluff</title>
 <link rel="stylesheet" href="ui.css">
 <link rel="stylesheet" href="popup.css">
 </head>
@@ -12,7 +12,7 @@
 
   <header class="pop-top">
     <img src="icons/icon48.png" width="34" height="34" alt="">
-    <strong>Netflix IMDb Ratings</strong>
+    <strong>NoFluff</strong>
   </header>
 
   <section id="needsKey" class="block" hidden>
@@ -33,6 +33,24 @@
     </div>
   </section>
 
+  <section class="skip" aria-label="Skipping">
+    <div class="skip-head">
+      <h2>Skipping</h2>
+      <span class="skip-count"><strong id="skToday">0</strong> skipped today</span>
+    </div>
+    <label class="row"><span>YouTube ads</span><input type="checkbox" data-group="sites" data-key="youtube"><i></i></label>
+    <label class="row"><span>Netflix intros</span><input type="checkbox" data-group="sites" data-key="netflix"><i></i></label>
+    <label class="row"><span>Prime Video intros</span><input type="checkbox" data-group="sites" data-key="prime"><i></i></label>
+    <details class="skip-more">
+      <summary>What to skip</summary>
+      <label class="row"><span>YouTube ads</span><input type="checkbox" data-group="types" data-key="ytAd"><i></i></label>
+      <label class="row"><span>Ad banners</span><input type="checkbox" data-group="types" data-key="ytOverlay"><i></i></label>
+      <label class="row"><span>Intros</span><input type="checkbox" data-group="types" data-key="intro"><i></i></label>
+      <label class="row"><span>Recaps</span><input type="checkbox" data-group="types" data-key="recap"><i></i></label>
+      <label class="row"><span>Credits</span><input type="checkbox" data-group="types" data-key="credits"><i></i></label>
+    </details>
+  </section>
+
   <footer class="pop-foot">
     <a href="https://github.com/rushilbh27/netflix-imdb" target="_blank" rel="noreferrer">GitHub</a>
     <span id="ver"></span>
@@ -40,5 +58,6 @@
 
 </main>
 <script src="popup.js"></script>
+<script src="skipit-popup.js"></script>
 </body>
 </html>

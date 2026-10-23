@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Netflix IMDb Ratings: see the score before you press play</title>
-<meta name="description" content="A free, open-source Chrome extension that puts IMDb, Rotten Tomatoes and Metacritic ratings on every Netflix title. No server, no tracking, bring your own free key.">
+<title>NoFluff: scores in, fluff out</title>
+<meta name="description" content="A free, open-source Chrome extension that puts IMDb, Rotten Tomatoes and Metacritic ratings on every Netflix title, and auto-skips YouTube ads and Netflix and Prime Video intros, recaps and credits. No server, no tracking.">
 <meta name="theme-color" content="#ffd500">
 <link rel="icon" href="favicon.png">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Netflix IMDb Ratings: see the score before you press play">
-<meta property="og:description" content="Netflix hides IMDb ratings. This puts them back on every title. Free, open source, no tracking.">
+<meta property="og:title" content="NoFluff: scores in, fluff out">
+<meta property="og:description" content="IMDb scores on every Netflix title. YouTube ads, intros, recaps and credits skipped for you. Free, open source, no tracking.">
 <meta property="og:image" content="https://rushilbh27.github.io/netflix-imdb/badges.png">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -21,10 +21,11 @@
 
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="#top"><img src="icon.svg" width="38" height="38" alt=""><span>Netflix IMDb Ratings</span></a>
+    <a class="brand" href="#top"><img src="icon.svg" width="38" height="38" alt=""><span>NoFluff</span></a>
     <nav class="nav-links" aria-label="Main">
       <a href="#how">How it works</a>
-      <a href="#try">Try it</a>
+      <a href="#try">Ratings</a>
+      <a href="#skipping">Skipping</a>
       <a href="#faq">FAQ</a>
       <a class="btn btn-yellow" href="#install">Install</a>
     </nav>
@@ -36,8 +37,8 @@
   <section class="hero" id="top">
     <div class="wrap">
       <div>
-        <h1>See the score before you press play.</h1>
-        <p class="hero-lede">Netflix hides IMDb ratings. This Chrome extension puts them back on every title, so you stop gambling two hours on a poster.</p>
+        <h1>Scores in. Fluff out.</h1>
+        <p class="hero-lede">Netflix hides IMDb ratings, so NoFluff puts them back on every title. It also hits Skip for you on YouTube ads and on Netflix and Prime Video intros, recaps and credits, even in fullscreen.</p>
         <div class="cta">
           <a class="btn btn-ink" href="#install">Install it, free</a>
           <a class="btn" href="https://github.com/rushilbh27/netflix-imdb" target="_blank" rel="noreferrer">View on GitHub <svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a>
@@ -50,6 +51,7 @@
         <div class="poster art-tri p2" style="--c:#b85a10"><span class="poster-title">Paper Satellites</span><span class="nf-badge nf-ok">★ 6.8</span></div>
         <div class="poster p3" style="--c:#5b3fd1"><span class="poster-title">Midnight Orchard</span><span class="nf-badge nf-good">★ 8.7</span></div>
         <span class="sticker">No tracking. No server.</span>
+        <span class="sk-chip" aria-hidden="true">Skip <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M5 4l12 8-12 8zM19 4h2v16h-2z"/></svg></span>
       </div>
     </div>
   </section>
@@ -75,7 +77,7 @@
     <div class="wrap">
       <div class="sec-head">
         <h2>Two minutes to set up, once.</h2>
-        <p>There is no server, so you bring your own free key. That is the whole trade, and it is why nothing gets tracked.</p>
+        <p>There is no server, so ratings need your own free key. That is the whole trade, and it is why nothing gets tracked. Skipping needs no key and works the moment it is loaded.</p>
       </div>
       <ol class="steps">
         <li class="step">
@@ -137,6 +139,57 @@
     </div>
   </section>
 
+  <section class="sk-section" id="skipping">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Skip the fluff.</h2>
+        <p>NoFluff presses Skip the instant YouTube, Netflix or Prime Video offers it. No countdown stare, no hunting for the button, and it works in fullscreen.</p>
+      </div>
+
+      <div class="sk-grid">
+        <div class="sk-demo">
+          <div class="sk-player" id="skPlayer">
+            <span class="sk-ad" id="skAd">Ad · Sponsored</span>
+            <span class="sk-title" id="skTitle">Watch this 30-second ad for a thing you do not need.</span>
+            <button class="sk-btn" id="skBtn" type="button">Skip <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M5 4l12 8-12 8zM19 4h2v16h-2z"/></svg></button>
+            <span class="sk-toast" id="skToast" aria-live="polite">Ad skipped</span>
+          </div>
+          <p class="sk-caption">Press Skip. The extension does exactly this, on its own, on the real sites.</p>
+        </div>
+
+        <ul class="sk-list">
+          <li class="card c-yellow">
+            <h3>YouTube</h3>
+            <p>Skippable video ads, static image ads, and the closable ad banners.</p>
+          </li>
+          <li class="card c-green">
+            <h3>Netflix</h3>
+            <p>Skip Intro and Skip Recap.</p>
+          </li>
+          <li class="card">
+            <h3>Prime Video</h3>
+            <p>Skip Intro, Skip Recap and Skip Credits.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sk-notes">
+        <div class="sk-note">
+          <h3>It never skips what you cannot skip.</h3>
+          <p>NoFluff is not an ad blocker. It only presses the Skip button the site itself offers, and it will not click "Next episode".</p>
+        </div>
+        <div class="sk-note">
+          <h3>One honest quirk.</h3>
+          <p>YouTube ignores clicks made by scripts, and static ads have no video to jump past. For those, NoFluff sends a real click through Chrome's debugger API, so Chrome shows a "started debugging this browser" bar for a few seconds. That is the only reason it asks for the <code>debugger</code> permission.</p>
+        </div>
+        <div class="sk-note">
+          <h3>Yours to switch off.</h3>
+          <p>The toolbar popup has a switch per site, a switch per skip type, and a counter of what it skipped today.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="features">
     <div class="wrap">
       <div class="sec-head">
@@ -164,7 +217,7 @@
 
         <article class="card c-third">
           <h3>No server. No tracking.</h3>
-          <p>Your browser talks to OMDb directly. No analytics, no remote fonts, no third-party scripts. Permissions stop at netflix.com and omdbapi.com.</p>
+          <p>Your browser talks to OMDb directly, and skipping never touches the network. No analytics, no remote fonts, no third-party scripts. Skipping reads nothing from the pages; it only presses Skip.</p>
         </article>
 
         <article class="card c-third c-tomato">
@@ -197,8 +250,8 @@
           <li><strong>Get the code.</strong> Clone the repo, or download the ZIP and unzip it somewhere it will stay.</li>
           <li><strong>Open</strong> <code>chrome://extensions</code> and turn on <strong>Developer mode</strong> (top right).</li>
           <li><strong>Load unpacked</strong> and pick the <code>netflix-imdb</code> folder.</li>
-          <li><strong>Follow the setup page</strong> that opens. It takes you through getting your free key.</li>
-          <li><strong>Open Netflix.</strong> Badges appear on their own.</li>
+          <li><strong>Follow the setup page</strong> that opens. It takes you through getting your free key, which is only for ratings.</li>
+          <li><strong>Open Netflix, YouTube or Prime Video.</strong> Badges and skipping start on their own. Refresh any tab that was already open.</li>
         </ol>
 
         <div>
@@ -230,7 +283,7 @@ git clone https://github.com/rushilbh27/netflix-imdb.git</pre>
         </details>
         <details>
           <summary>What does it see and send?</summary>
-          <div><p>It reads titles on the Netflix pages you browse so it can look them up, and sends those title strings to OMDb with your key. Your key and cached ratings stay in your browser. No analytics, no telemetry. It is all unminified, so you can check.</p></div>
+          <div><p>For ratings, it reads titles on the Netflix pages you browse so it can look them up, and sends those title strings to OMDb with your key. Your key and cached ratings stay in your browser. For skipping, it only looks for the Skip button on YouTube, Netflix and Prime Video and presses it; nothing from those pages is read out or sent anywhere. No analytics, no telemetry. It is all unminified, so you can check.</p></div>
         </details>
         <details>
           <summary>Why is it not in the Chrome Web Store?</summary>
@@ -249,8 +302,16 @@ git clone https://github.com/rushilbh27/netflix-imdb.git</pre>
           <div><p>Eventually something will break. The extension warns in the console when it finds no title cards, and every Netflix-specific selector is in one place, so a fix is small. Issues and pull requests are welcome.</p></div>
         </details>
         <details>
+          <summary>Does it skip every YouTube ad?</summary>
+          <div><p>Every ad YouTube lets you skip, yes: video ads and static image ads, plus the closable banners. It does not block ads, and an ad with no Skip button stays put. It presses Skip the moment the button is there.</p></div>
+        </details>
+        <details>
+          <summary>What is the "started debugging this browser" bar?</summary>
+          <div><p>YouTube ignores clicks made by scripts, and static ads have no video to jump to the end of. For those, NoFluff sends a real click through Chrome's debugger API, which is the only reason it asks for the <code>debugger</code> permission. Chrome shows its own bar for a few seconds while that happens. It only ever targets <code>youtube.com</code>, and the bar goes away by itself.</p></div>
+        </details>
+        <details>
           <summary>Does it work on Prime Video or Disney+?</summary>
-          <div><p>Not yet. It is Netflix only. The structure would allow others, and it is on the list of good first contributions.</p></div>
+          <div><p>Skipping works on Prime Video: intro, recap and credits. Ratings are Netflix only for now, and Disney+ is not supported yet. The structure would allow more, and it is on the list of good first contributions.</p></div>
         </details>
       </div>
     </div>
@@ -261,8 +322,8 @@ git clone https://github.com/rushilbh27/netflix-imdb.git</pre>
 <footer class="foot">
   <div class="wrap">
     <div>
-      <div class="big">Stop guessing from posters.</div>
-      <p>Not affiliated with Netflix, IMDb or OMDb. Netflix is a trademark of Netflix, Inc. Ratings data comes from the OMDb API, an independent service.</p>
+      <div class="big">Less fluff. More watching.</div>
+      <p>Not affiliated with Netflix, IMDb, OMDb, YouTube or Amazon. Netflix is a trademark of Netflix, Inc., YouTube of Google LLC, and Prime Video of Amazon.com, Inc. Ratings data comes from the OMDb API, an independent service.</p>
     </div>
     <ul>
       <li><a href="https://github.com/rushilbh27/netflix-imdb" target="_blank" rel="noreferrer">Source on GitHub</a></li>

@@ -61,7 +61,7 @@
   window.chrome = {
     runtime: {
       lastError: undefined,
-      getManifest: () => ({ version: '1.1.0' }),
+      getManifest: () => ({ version: '1.2.0' }),
       openOptionsPage: () => { console.log('[stub] openOptionsPage()'); window.__openedOptions = true; },
       sendMessage: (msg, cb) => {
         const delay = msg.type === 'rating' ? 150 + Math.random() * 500 : 20;
@@ -89,6 +89,9 @@
       }
     }
   };
+
+  // The skipping settings use storage.sync; in the preview it shares the same fake store.
+  window.chrome.storage.sync = window.chrome.storage.local;
 
   // OMDb, faked: lets the key-verification flow be exercised without spending a lookup.
   const realFetch = window.fetch.bind(window);

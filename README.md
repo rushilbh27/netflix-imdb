@@ -1,10 +1,13 @@
-# Netflix IMDb Ratings
+# NoFluff
 
-A Chrome extension that puts IMDb, Rotten Tomatoes and Metacritic ratings directly on
-Netflix, on the row cards and on the detail page, so you can judge something before you
-commit two hours to it.
+**Scores in. Fluff out.** A Chrome extension that does two things:
 
-Netflix hides external ratings on purpose. This puts them back.
+1. **Ratings.** Puts IMDb, Rotten Tomatoes and Metacritic ratings directly on Netflix, on the
+   row cards and on the detail page, so you can judge something before you commit two hours
+   to it. Netflix hides external ratings on purpose. This puts them back.
+2. **Skipping.** Clicks Skip for you: YouTube ads, and the intro, recap and credits buttons on
+   Netflix and Prime Video. It works in fullscreen. (This half used to be a separate
+   extension called Skip It. It lives here now.)
 
 **[Website](https://rushilbh27.github.io/netflix-imdb/)** has a live demo, the install steps and an FAQ.
 
@@ -23,6 +26,7 @@ Netflix hides external ratings on purpose. This puts them back.
 - [Install](#install)
 - [Get your free API key](#get-your-free-api-key) (needed once, takes about a minute)
 - [What the badges mean](#what-the-badges-mean)
+- [Skipping](#skipping) (needs no key, works right after install)
 - [About](#about)
 - [How it works](#how-it-works)
 - [When it breaks](#when-it-breaks)
@@ -55,7 +59,8 @@ if the folder moves or disappears the extension stops working.
 4. Select the `netflix-imdb` folder
 
 A setup page opens by itself. That is the next section, and the page walks you through it
-too.
+too. The key is only for ratings: [skipping](#skipping) needs nothing and works as soon as
+the extension is loaded. Refresh any YouTube, Netflix or Prime tab that was already open.
 
 > Chrome may show a "Disable developer mode extensions" prompt on later launches. That is
 > normal for any unpacked extension. Dismiss it and the extension keeps working.
@@ -136,6 +141,38 @@ Open a title to see all three scores together in a panel above its details.
 
 ---
 
+## Skipping
+
+NoFluff clicks the Skip button the moment it shows up, and tells you it did with a small
+yellow sticker in the corner. Nothing to configure.
+
+| Where | What it skips |
+|---|---|
+| YouTube | Skippable video ads, static (image) ads, and the little ad banners you can close |
+| Netflix | Skip Intro, Skip Recap |
+| Prime Video | Skip Intro, Skip Recap, Skip Credits |
+
+It works in fullscreen. The popup (toolbar icon) has a switch per site, a switch per skip
+type, and a counter of what it skipped today.
+
+**What it does not do.** It never touches ads YouTube does not let you skip, and it does not
+block ads. It only presses the Skip button YouTube itself offers. It also does not click
+"Next episode".
+
+**How YouTube ads get skipped.** YouTube ignores clicks made by scripts, so there are three
+steps, tried in order until the ad goes away:
+
+1. A plain click, then a full mouse-event sequence.
+2. For video ads, jumping the ad to its end (only once the ad is skippable).
+3. For static ads, which have no video to jump, a real click sent through Chrome's
+   `debugger` API. Chrome shows a **"NoFluff started debugging this browser"** bar for a few
+   seconds when this happens. That is expected, and it goes away by itself. This is the only
+   reason the extension asks for the `debugger` permission.
+
+Netflix and Prime need only the plain click.
+
+---
+
 ## About
 
 There were already two popular extensions that did this: **Trim** (50,000 users) and
@@ -207,7 +244,7 @@ OMDb's free tier allows 1,000 lookups a day. In practice you will not get near i
 
 The toolbar popup shows how many you have left today.
 
-<img src="docs/popup.png" alt="The toolbar popup: Ratings are on, 612 of 950 lookups left today" width="330">
+<img src="docs/popup.png" alt="The toolbar popup: Ratings are on, 612 of 950 lookups left today, plus the Skipping switches" width="330">
 
 ---
 
@@ -244,6 +281,9 @@ If you fix it, please open a PR. That is the main way this stays alive.
 | No email from OMDb | Check spam. Outlook, Hotmail and Yahoo can take up to an hour. Trying again with a Gmail address is quickest. |
 | Grey `–` badges | The daily lookup limit was reached or the request failed. It resets at midnight UTC. |
 | No badges at all | Netflix probably changed its layout. See [When it breaks](#when-it-breaks). |
+| Skip does nothing on a site that was already open | Refresh the tab. Chrome does not inject an updated extension into tabs that were open before it loaded. |
+| A "started debugging this browser" bar appears on YouTube | Expected. It is how static YouTube ads get skipped. It disappears after a few seconds. |
+| A YouTube ad was not skipped | Open DevTools, filter the console by `NoFluff`, and open an issue with those lines and the ad's Skip button HTML. |
 
 ---
 
@@ -254,6 +294,13 @@ If you fix it, please open a PR. That is the main way this stays alive.
 - The only network destination is `omdbapi.com`. It receives title strings, nothing else.
 - No analytics, no telemetry, no backend, no third-party scripts, no remote fonts.
 - Host permissions are limited to `netflix.com` and `omdbapi.com`.
+- **Skipping** (YouTube ads, Netflix/Prime intros, recaps and credits) runs a
+  second content script on `youtube.com`, `netflix.com`, `primevideo.com` and `amazon.*`. It
+  reads nothing from those pages and sends nothing anywhere; it only clicks the Skip button.
+  Its toggles are in `chrome.storage.sync` and its counter in `chrome.storage.local`.
+- The `debugger` permission exists for one case: YouTube ignores scripted clicks on static
+  (image) ads, so a real click is sent through the debugger API, only to `youtube.com` pages.
+  Chrome shows a "started debugging this browser" bar for a few seconds when that happens.
 
 Everything is readable. There is no minified code. Check for yourself.
 
@@ -288,7 +335,8 @@ the extension itself.
 Good first contributions:
 
 - Selector updates after a Netflix change
-- Support for Prime Video, Disney+ or Hotstar (the architecture allows it; it is not built)
+- Ratings on Prime Video, Disney+ or Hotstar (the architecture allows it; it is not built)
+- More skip targets: Disney+ and Hotstar intros, Crunchyroll, Spotify ads
 - A toggle to dim or hide titles below a rating threshold
 - Better matching for regional titles that Netflix renames
 
@@ -298,10 +346,12 @@ Good first contributions:
 |---|---|
 | `manifest.json` | MV3 config and permissions |
 | `content.js` | DOM scanning, badge, hover card and panel injection, the `SELECTORS` block |
-| `background.js` | OMDb requests, cache, rate limiting, queue, match confidence |
+| `skipper.js` | The skipping half: finds and clicks Skip buttons on YouTube, Netflix and Prime, shows the sticker, counts skips |
+| `background.js` | OMDb requests, cache, rate limiting, queue, match confidence; also the trusted click for static YouTube ads |
 | `styles.css` | Everything injected into Netflix |
 | `options.html` / `.css` / `.js` | The setup page: key walkthrough, verification, settings |
-| `popup.html` / `.css` / `.js` | The toolbar popup: status and quota |
+| `popup.html` / `.css` / `.js` | The toolbar popup: ratings status and quota |
+| `skipit-popup.js` | The skipping switches and counter in the popup |
 | `ui.css` | Shared styles for the setup page and popup |
 | `icons/` | Extension icons (`icon.svg` is the source) |
 | `docs/` | The landing page (`index.html`, `landing.css`, `landing.js`) and the README screenshots. Static, no build, no external requests. |
@@ -313,5 +363,6 @@ Good first contributions:
 
 MIT. See [LICENSE](LICENSE).
 
-Not affiliated with Netflix, IMDb, or OMDb. Netflix is a trademark of Netflix, Inc.
+Not affiliated with Netflix, IMDb, OMDb, YouTube or Amazon. Netflix is a trademark of
+Netflix, Inc.; YouTube is a trademark of Google LLC; Prime Video is a trademark of Amazon.com, Inc.
 Ratings data comes from the [OMDb API](https://www.omdbapi.com/), an independent service.

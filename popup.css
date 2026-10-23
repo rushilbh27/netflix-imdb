@@ -40,3 +40,59 @@ body { width: 330px; }
 }
 .pop-foot a { color: var(--yellow); }
 .pop-foot a:hover { background: var(--yellow); color: var(--ink); }
+
+/* ------------------------------------------------------------ Skipping */
+
+.skip { padding: 4px 18px 16px; border-top: 4px solid var(--ink); }
+.skip-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 14px 0 6px; }
+.skip-head h2 { font-size: 22px; letter-spacing: -0.03em; }
+.skip-count { font-size: 13px; font-weight: 700; }
+.skip-count strong { font: 900 22px/1 var(--display); font-variant-numeric: tabular-nums; margin-right: 4px; }
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  font: 700 15px/1.2 var(--body);
+  cursor: pointer;
+  border-bottom: 2px solid var(--ink);
+}
+.row input { position: absolute; opacity: 0; pointer-events: none; }
+.row i {
+  position: relative;
+  flex: none;
+  width: 48px;
+  height: 26px;
+  border: var(--line);
+  background: var(--paper);
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: background 0.07s ease;
+}
+.row i::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: var(--ink);
+  transition: transform 0.07s ease;
+}
+.row input:checked + i { background: var(--green); }
+.row input:checked + i::after { transform: translateX(22px); }
+.row input:focus-visible + i { outline: 4px solid var(--focus); outline-offset: 3px; }
+
+.skip-more { padding-top: 10px; }
+.skip-more > summary {
+  cursor: pointer;
+  list-style: none;
+  font: 900 13px/1 var(--display);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.skip-more > summary::-webkit-details-marker { display: none; }
+.skip-more > summary::after { content: "  +"; }
+.skip-more[open] > summary::after { content: "  –"; }
+.skip-more[open] > summary { margin-bottom: 4px; }
+.skip-more .row:last-child { border-bottom: 0; }

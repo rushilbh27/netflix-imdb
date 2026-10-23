@@ -247,3 +247,66 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   if (await getApiKey()) return;
   chrome.runtime.openOptionsPage();
 });
+
+// ---------------------------------------------------------------- Skipping
+
+// Last-resort trusted click for YouTube static ads, where scripted clicks are ignored and
+// there is no video to seek. Uses the debugger API, so Chrome shows its
+// "started debugging this browser" bar while attached; we detach after a few idle seconds.
+
+const SKIP_IDLE_MS = 6000;
+const skipTimers = new Map();
+
+const skipCmd = (tabId, method, params) => chrome.debugger.sendCommand({ tabId }, method, params);
+
+function skipDetach(tabId) {
+  clearTimeout(skipTimers.get(tabId));
+  skipTimers.delete(tabId);
+  chrome.debugger.detach({ tabId }).catch(() => {});
+}
+
+async function skipEnsureAttached(tabId) {
+  if (!skipTimers.has(tabId)) {
+    try {
+      await chrome.debugger.attach({ tabId }, '1.3');
+    } catch (e) {
+      if (!/already attached/i.test(String(e))) throw e;
+    }
+  }
+  clearTimeout(skipTimers.get(tabId));
+  skipTimers.set(tabId, setTimeout(() => skipDetach(tabId), SKIP_IDLE_MS));
+}
+
+chrome.debugger.onDetach.addListener((source) => {
+  clearTimeout(skipTimers.get(source.tabId));
+  skipTimers.delete(source.tabId);
+});
+
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (!msg || msg.type !== 'skipTrustedClick' || !sender.tab || !sender.url) return false;
+  let host = '';
+  try {
+    host = new URL(sender.url).hostname;
+  } catch (e) {
+    return false;
+  }
+  if (!/(^|\.)youtube\.com$/.test(host)) return false;
+
+  (async () => {
+    try {
+      const tabId = sender.tab.id;
+      // Browser zoom: unclear whether input coords are zoomed, so the caller alternates.
+      const k = msg.useZoom ? await chrome.tabs.getZoom(tabId) : 1;
+      const x = msg.x * k;
+      const y = msg.y * k;
+      await skipEnsureAttached(tabId);
+      await skipCmd(tabId, 'Input.dispatchMouseEvent', { type: 'mouseMoved', x, y });
+      await skipCmd(tabId, 'Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'left', buttons: 1, clickCount: 1 });
+      await skipCmd(tabId, 'Input.dispatchMouseEvent', { type: 'mouseReleased', x, y, button: 'left', buttons: 0, clickCount: 1 });
+      sendResponse({ ok: true });
+    } catch (e) {
+      sendResponse({ ok: false, error: String(e) });
+    }
+  })();
+  return true;
+});

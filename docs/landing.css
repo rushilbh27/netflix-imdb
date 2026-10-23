@@ -1,4 +1,4 @@
-/* Landing page for Netflix IMDb Ratings.
+/* Landing page for NoFluff.
    Same neo-brutalist system as the extension: flat colour, 3px ink borders,
    hard offset shadows, square corners, system fonts. No external requests. */
 
@@ -326,4 +326,104 @@ section { padding: 96px 0; }
   .btn { padding: 14px 16px; }
   .nav .brand span { font-size: 16px; }
   .broke, .card, .step { padding-left: 20px; padding-right: 20px; }
+}
+
+/* ------------------------------------------------------------ skipping */
+
+.sk-chip {
+  position: absolute;
+  right: 0;
+  bottom: -26px;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: var(--line);
+  background: var(--ink);
+  color: var(--paper);
+  font: 900 18px/1 var(--display);
+  box-shadow: 5px 5px 0 var(--paper);
+  transform: rotate(3deg);
+}
+
+.sk-section { background: var(--paper); border-bottom: 4px solid var(--ink); }
+.sk-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 44px; align-items: start; }
+
+.sk-player {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 4px solid var(--ink);
+  background: #1d1b24;
+  color: #fff;
+  box-shadow: 10px 10px 0 var(--ink);
+}
+.sk-player::before {
+  content: "";
+  position: absolute;
+  right: -10%;
+  bottom: -40%;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #ffffff10;
+}
+.sk-ad { position: absolute; left: 16px; top: 14px; padding: 4px 10px; background: var(--yellow); color: var(--ink); font: 900 12px var(--display); }
+.sk-title { position: absolute; left: 16px; right: 16px; top: 50%; transform: translateY(-50%); font: 900 clamp(18px, 2.6vw, 30px)/1.1 var(--display); letter-spacing: -0.02em; }
+.sk-btn {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font: 900 17px/1 var(--display);
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--yellow);
+  transition: transform 0.07s ease, box-shadow 0.07s ease;
+}
+.sk-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--yellow); }
+.sk-btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--yellow); }
+.sk-toast {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 9px 14px;
+  border: 3px solid var(--ink);
+  background: var(--yellow);
+  color: var(--ink);
+  font: 900 15px/1 var(--display);
+  box-shadow: 4px 4px 0 var(--ink);
+  transform: rotate(-2deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+.sk-player.skipped .sk-toast { opacity: 1; }
+.sk-player.skipped .sk-btn { visibility: hidden; }
+.sk-player.skipped .sk-ad { background: var(--green); }
+.sk-caption { margin-top: 28px; font-size: 15px; font-weight: 700; color: var(--muted); }
+
+.sk-list { list-style: none; padding: 0; display: grid; gap: 22px; }
+.sk-list .card { padding: 22px 24px 24px; box-shadow: 6px 6px 0 var(--ink); }
+.sk-list .card h3 { font-size: 24px; }
+
+.sk-notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; margin-top: 64px; }
+.sk-note { padding: 24px 24px 26px; border: var(--line); background: var(--ink); color: var(--paper); box-shadow: 8px 8px 0 var(--yellow); }
+.sk-note h3 { color: var(--yellow); font-size: 22px; }
+.sk-note p { margin-top: 12px; font-size: 16px; font-weight: 500; }
+.sk-note code { background: transparent; border-color: var(--yellow); color: var(--yellow); }
+
+@media (max-width: 980px) {
+  .sk-grid, .sk-notes { grid-template-columns: 1fr; gap: 40px; }
+  .sk-chip { right: 8%; bottom: -34px; }
+}
+@media (max-width: 600px) {
+  .sk-chip { font-size: 16px; padding: 8px 12px; }
+  .sk-btn { padding: 9px 12px; font-size: 15px; }
 }
