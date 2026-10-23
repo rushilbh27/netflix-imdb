@@ -9,7 +9,7 @@
    Netflix and Prime Video. It works in fullscreen. (This half used to be a separate
    extension called Skip It. It lives here now.)
 
-**[Website](https://rushilbh27.github.io/netflix-imdb/)** has a live demo, the install steps and an FAQ.
+**[Website](https://rushilbh27.github.io/nofluff/)** has a live demo, the install steps and an FAQ.
 
 ![badge: manifest v3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4)
 ![badge: license](https://img.shields.io/badge/license-MIT-green)
@@ -44,7 +44,7 @@ and works in any Chromium browser: Chrome, Edge, Brave, Arc, Opera.
 **1. Get the code**
 
 ```bash
-git clone https://github.com/rushilbh27/netflix-imdb.git
+git clone https://github.com/rushilbh27/nofluff.git
 ```
 
 No git? On the repo page press the green **Code** button, choose **Download ZIP**, and
@@ -56,7 +56,7 @@ if the folder moves or disappears the extension stops working.
 1. Open `chrome://extensions`
 2. Turn on **Developer mode** (top right)
 3. Click **Load unpacked**
-4. Select the `netflix-imdb` folder
+4. Select the `nofluff` folder (it is called `nofluff-main` if you downloaded the ZIP)
 
 A setup page opens by itself. That is the next section, and the page walks you through it
 too. The key is only for ratings: [skipping](#skipping) needs nothing and works as soon as
