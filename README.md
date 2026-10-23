@@ -6,6 +6,8 @@ commit two hours to it.
 
 Netflix hides external ratings on purpose. This puts them back.
 
+**[Website](https://rushilbh27.github.io/netflix-imdb/)** has a live demo, the install steps and an FAQ.
+
 ![badge: manifest v3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4)
 ![badge: license](https://img.shields.io/badge/license-MIT-green)
 ![badge: no backend](https://img.shields.io/badge/backend-none-lightgrey)
