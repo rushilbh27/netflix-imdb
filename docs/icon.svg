@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- hard offset shadow, then the ticket: flat fill, thick ink outline, no gradient -->
+  <rect x="18" y="28" width="104" height="86" fill="#111"/>
+  <rect x="8" y="16" width="104" height="86" fill="#ffd500" stroke="#111" stroke-width="9"/>
+  <!-- perforation -->
+  <line x1="36" y1="26" x2="36" y2="92" stroke="#111" stroke-width="5" stroke-dasharray="7 8"/>
+  <!-- star -->
+  <path fill="#111" d="M74 30l8.6 17.6 19.4 2.8-14 13.7 3.3 19.3L74 74.3l-17.3 9.1 3.3-19.3-14-13.7 19.4-2.8z"/>
+</svg>

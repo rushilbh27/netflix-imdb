@@ -95,7 +95,7 @@ code {
   transform: rotate(-2deg);
 }
 .pill[data-tone="ok"]   { background: var(--green); }
-.pill[data-tone="warn"] { background: var(--tomato); color: #fff; }
+.pill[data-tone="warn"] { background: var(--tomato); }
 
 /* ------------------------------------------------------------ quota bar */
 

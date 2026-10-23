@@ -302,6 +302,7 @@ Good first contributions:
 | `popup.html` / `.css` / `.js` | The toolbar popup: status and quota |
 | `ui.css` | Shared styles for the setup page and popup |
 | `icons/` | Extension icons (`icon.svg` is the source) |
+| `docs/` | The landing page (`index.html`, `landing.css`, `landing.js`) and the README screenshots. Static, no build, no external requests. |
 | `dev/` | Mock Netflix page and `chrome.*` stub, for development only |
 
 ---

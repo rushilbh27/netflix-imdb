@@ -165,7 +165,7 @@
   transform: rotate(2deg);
   white-space: nowrap;
 }
-.sticker-tomato { background: var(--tomato); color: #fff; transform: rotate(-2deg); }
+.sticker-tomato { background: var(--tomato); transform: rotate(-2deg); }
 .sticker-green  { background: var(--green); }
 .sticker-ink    { background: var(--ink); color: var(--yellow); transform: rotate(-2deg); }
 
@@ -261,7 +261,7 @@
   line-height: 1.4;
 }
 .msg:empty { display: none; }
-.ticket[data-state="error"] .msg { background: var(--tomato); color: #fff; }
+.ticket[data-state="error"] .msg { background: var(--tomato); color: var(--ink); }
 .ticket[data-state="ok"] .msg    { background: var(--green); color: var(--ink); }
 .ticket[data-state="checking"] .msg { background: #fff; }
 
