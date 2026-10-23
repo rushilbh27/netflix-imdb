@@ -1,0 +1,17 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Preview</title>
+<!--
+  Loads an extension page (options or popup) with the chrome.* stub injected first.
+    dev/preview.html?page=options&key=none
+    dev/preview.html?page=popup
+-->
+<script>
+  (async () => {
+    const page = new URLSearchParams(location.search).get('page') || 'options';
+    const html = await (await fetch('../' + page + '.html')).text();
+    document.open();
+    document.write(html.replace('<head>', '<head><base href="../"><script src="dev/stub-chrome.js"><\/script>'));
+    document.close();
+  })();
+</script>

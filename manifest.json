@@ -1,8 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Netflix IMDb Ratings",
-  "version": "1.0.0",
-  "description": "Shows IMDb, Rotten Tomatoes and Metacritic ratings on Netflix cards and detail pages.",
+  "version": "1.1.0",
+  "description": "Shows IMDb, Rotten Tomatoes and Metacritic ratings on Netflix titles. Bring your own free OMDb key.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": ["storage"],
   "host_permissions": [
     "https://www.netflix.com/*",
@@ -21,6 +27,12 @@
   ],
   "options_page": "options.html",
   "action": {
-    "default_title": "Netflix IMDb Ratings"
+    "default_title": "Netflix IMDb Ratings",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
   }
 }

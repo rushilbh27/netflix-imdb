@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd84a"/>
+      <stop offset="1" stop-color="#f0b400"/>
+    </linearGradient>
+    <!-- ticket notches: a bite out of the left and right edges -->
+    <mask id="m">
+      <rect width="128" height="128" fill="#fff"/>
+      <circle cx="0" cy="64" r="13" fill="#000"/>
+      <circle cx="128" cy="64" r="13" fill="#000"/>
+    </mask>
+  </defs>
+  <rect x="4" y="14" width="120" height="100" rx="18" fill="url(#g)" mask="url(#m)"/>
+  <!-- perforation -->
+  <g stroke="#241c00" stroke-opacity=".28" stroke-width="3" stroke-linecap="round" stroke-dasharray="0.1 8">
+    <line x1="28" y1="24" x2="28" y2="104"/>
+  </g>
+  <!-- star -->
+  <path fill="#241c00" d="M72 31.5l8.2 16.7 18.4 2.7-13.3 13 3.1 18.3L72 73.5l-16.4 8.7 3.1-18.3-13.3-13 18.4-2.7z"/>
+</svg>

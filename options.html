@@ -2,77 +2,151 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Netflix IMDb Ratings — Settings</title>
-<style>
-  :root { color-scheme: dark; }
-  body {
-    margin: 0;
-    padding: 32px;
-    background: #141414;
-    color: #e5e5e5;
-    font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  }
-  .wrap { max-width: 520px; margin: 0 auto; }
-  h1 { font-size: 20px; margin: 0 0 4px; }
-  .sub { color: #8c8c8c; margin: 0 0 28px; font-size: 13px; }
-  label { display: block; font-weight: 600; margin-bottom: 8px; }
-  input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 11px 12px;
-    border: 1px solid #3a3a3a;
-    border-radius: 5px;
-    background: #1f1f1f;
-    color: #e5e5e5;
-    font: 14px ui-monospace, SFMono-Regular, Menlo, monospace;
-    letter-spacing: 1px;
-  }
-  input:focus { outline: none; border-color: #e50914; }
-  .row { display: flex; gap: 10px; align-items: center; margin-top: 14px; }
-  button {
-    padding: 10px 18px;
-    border: 0;
-    border-radius: 5px;
-    background: #e50914;
-    color: #fff;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  button.ghost { background: #2c2c2c; color: #d2d2d2; }
-  button:hover { filter: brightness(1.12); }
-  .status { font-size: 13px; min-height: 20px; }
-  .ok { color: #46d369; }
-  .err { color: #ff6b6b; }
-  .hint { margin-top: 26px; padding-top: 20px; border-top: 1px solid #2a2a2a; color: #8c8c8c; font-size: 12.5px; }
-  .hint a { color: #f5c518; }
-  code { background: #232323; padding: 2px 5px; border-radius: 3px; font-size: 12px; }
-  .quota { margin-top: 10px; font-size: 12.5px; color: #8c8c8c; }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Netflix IMDb Ratings: Setup</title>
+<link rel="icon" href="icons/icon32.png">
+<link rel="stylesheet" href="ui.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="options.css">
 </head>
 <body>
-  <div class="wrap">
-    <h1>Netflix IMDb Ratings</h1>
-    <p class="sub">Stored locally in this browser profile only. Never synced, never sent anywhere except omdbapi.com.</p>
+<div class="page">
 
-    <label for="key">OMDb API key</label>
-    <input id="key" type="text" spellcheck="false" autocomplete="off" placeholder="e.g. a1b2c3d4">
-
-    <div class="row">
-      <button id="save">Save</button>
-      <button id="test" class="ghost">Test key</button>
-      <button id="clearCache" class="ghost">Clear cache</button>
+  <header class="top">
+    <img class="logo" src="icons/icon48.png" width="44" height="44" alt="">
+    <div class="title">
+      <h1>Netflix IMDb Ratings</h1>
+      <p>Ratings on every title, before you press play.</p>
     </div>
+    <div id="pill" class="pill" role="status">Checking</div>
+  </header>
 
-    <p class="status" id="status"></p>
-    <p class="quota" id="quota"></p>
-
-    <div class="hint">
-      <p>No key yet? Get a free one at <a href="https://www.omdbapi.com/apikey.aspx" target="_blank" rel="noreferrer">omdbapi.com/apikey.aspx</a> — then click the activation link OMDb emails you, or lookups will fail.</p>
-      <p>Free tier allows 1000 lookups/day. Results are cached for 30 days, so normal browsing stays well under it.</p>
-      <p>Ratings not appearing? Open the console on Netflix and run <code>localStorage.setItem('nfimdb:debug','1')</code>, then reload.</p>
+  <section id="ready" class="ready" hidden>
+    <div class="ready-head">
+      <span class="ready-mark" aria-hidden="true">✓</span>
+      <div>
+        <h2>Ratings are on</h2>
+        <p>Open Netflix and look for the badge at the bottom-left of each title. Open a title to see IMDb, Rotten Tomatoes and Metacritic together.</p>
+      </div>
     </div>
-  </div>
-  <script src="options.js"></script>
+    <ul class="legend" aria-label="What the badges mean">
+      <li><a class="nfimdb-badge nfimdb-good" tabindex="-1"><span class="nfimdb-star">★</span><span class="nfimdb-score">8.4</span></a><span>Great, 7.5 and up</span></li>
+      <li><a class="nfimdb-badge nfimdb-ok" tabindex="-1"><span class="nfimdb-star">★</span><span class="nfimdb-score">6.8</span></a><span>Decent, 6.0 to 7.4</span></li>
+      <li><a class="nfimdb-badge nfimdb-bad" tabindex="-1"><span class="nfimdb-star">★</span><span class="nfimdb-score">5.1</span></a><span>Weak, under 6.0</span></li>
+      <li><a class="nfimdb-badge nfimdb-uncertain" tabindex="-1"><span class="nfimdb-score">?</span></a><span>Not sure which title this is. Click to search IMDb.</span></li>
+    </ul>
+    <a class="btn btn-primary" href="https://www.netflix.com/" target="_blank" rel="noreferrer">Open Netflix <svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a>
+  </section>
+
+  <details id="setup" class="setup" open>
+    <summary id="setupSummary">Set up in three steps</summary>
+
+    <ol class="steps">
+
+      <li class="step" id="step1">
+        <span class="num" aria-hidden="true">1</span>
+        <div class="body">
+          <h2>Get a free key from OMDb</h2>
+          <p>OMDb is the open movie database that supplies the ratings. A key is free, personal to you, and takes about a minute.</p>
+          <p><a class="btn btn-primary" href="https://www.omdbapi.com/apikey.aspx" target="_blank" rel="noreferrer">Open the OMDb sign-up page <svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6 3H3v10h10v-3M9 3h4v4M13 3L7.5 8.5"/></svg></a></p>
+          <p class="lead">On that page, fill in the form like this:</p>
+          <dl class="form-guide">
+            <div class="warn-row">
+              <dt>Account type</dt>
+              <dd>Choose <mark>FREE! (1,000 daily limit)</mark>. The page starts on <em>Patreon</em>, which is the paid option, so switch it.</dd>
+            </div>
+            <div>
+              <dt>Email</dt>
+              <dd>Use a Gmail address if you can. OMDb says Outlook, Hotmail and Yahoo mail can take up to an hour to arrive.</dd>
+            </div>
+            <div>
+              <dt>First name, last name</dt>
+              <dd>Anything works.</dd>
+            </div>
+            <div>
+              <dt>Use</dt>
+              <dd>Type <code>personal browser extension</code>.</dd>
+            </div>
+          </dl>
+          <p>Then press <strong>Submit</strong>.</p>
+        </div>
+      </li>
+
+      <li class="step" id="step2">
+        <span class="num" aria-hidden="true">2</span>
+        <div class="body">
+          <h2>Activate it, then copy the key</h2>
+          <p>An email from <strong>The OMDb API</strong> arrives, usually within a minute. Click the activation link in it first, because the key won't work until you do. Then copy the 8 letters and numbers after <em>Here is your key:</em></p>
+          <figure class="mail">
+            <div class="mail-bar"><span>The OMDb API</span><span>API Key</span></div>
+            <div class="mail-body">
+              <p class="row"><span>Here is your key: <b class="key">a1b2c3d4</b></span><span class="tag tag-copy">Copy this</span></p>
+              <p class="row dim"><span>Please append it to all of your API requests,</span></p>
+              <p class="row"><span>Click the following URL to activate your key:</span></p>
+              <p class="row"><span class="fake-link">http://www.omdbapi.com/apikey.aspx?VERIFYKEY=…</span><span class="tag tag-click">Click this first</span></p>
+            </div>
+            <figcaption>Example only. Your key will be different.</figcaption>
+          </figure>
+        </div>
+      </li>
+
+      <li class="step" id="step3">
+        <span class="num" aria-hidden="true">3</span>
+        <div class="body">
+          <h2>Paste it here</h2>
+          <p>Paste the key below. You can paste the whole line from the email too, and it will pick the key out.</p>
+
+          <form id="form" class="ticket" data-state="idle" novalidate>
+            <div class="ticket-main">
+              <label for="key">Your OMDb key</label>
+              <input id="key" name="key" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="a1b2c3d4" maxlength="200">
+              <p id="msg" class="msg" role="status" aria-live="polite"></p>
+            </div>
+            <div class="ticket-stub">
+              <button id="save" class="stub-btn" type="submit">Save key</button>
+            </div>
+          </form>
+
+          <p class="fine">The key stays in this browser. It's sent to OMDb with each rating lookup and nowhere else.</p>
+        </div>
+      </li>
+
+    </ol>
+  </details>
+
+  <details class="more" id="more">
+    <summary>Settings and troubleshooting</summary>
+
+    <div class="more-body">
+      <div class="quota">
+        <div class="quota-text"><strong id="quotaLeft">–</strong><span id="quotaNote">lookups left today</span></div>
+        <div class="meter" id="meter" data-level="ok"><span id="meterFill"></span></div>
+        <p class="fine">The free key allows 1,000 lookups a day. Ratings are remembered for 30 days, so everyday browsing barely uses any.</p>
+      </div>
+
+      <div class="actions">
+        <button id="clearCache" class="btn" type="button">Clear saved ratings</button>
+        <button id="removeKey" class="btn btn-quiet" type="button">Remove my key</button>
+      </div>
+      <p id="actionMsg" class="fine" role="status" aria-live="polite"></p>
+
+      <label class="check">
+        <input id="debug" type="checkbox">
+        <span>Log what the extension is doing to the Netflix page console</span>
+      </label>
+
+      <h3>If badges stop showing up</h3>
+      <p>Netflix changes its page layout now and then, and card detection can break until the extension is updated. Turn on logging above, open the console on Netflix, and look for lines starting with <code>[nfimdb]</code>. <a href="https://github.com/rushilbh27/netflix-imdb/issues/new/choose" target="_blank" rel="noreferrer">Report it on GitHub</a> and include what you see.</p>
+    </div>
+  </details>
+
+  <footer class="foot">
+    <p>Netflix IMDb Ratings <span id="ver"></span> is free and open source under the MIT license.</p>
+    <p><a href="https://github.com/rushilbh27/netflix-imdb" target="_blank" rel="noreferrer">Source on GitHub</a></p>
+    <p>Not affiliated with Netflix, IMDb or OMDb.</p>
+  </footer>
+
+</div>
+<script src="options.js"></script>
 </body>
 </html>

@@ -138,7 +138,13 @@ async function fetchFromOmdb(apiKey, title, year) {
   if (year) params.set('y', String(year));
 
   const res = await fetch(OMDB_URL + '?' + params.toString());
-  if (res.status === 401) return { status: 'badkey' };
+  if (res.status === 401) {
+    // 401 covers both a rejected key and "Request limit reached!". Telling someone
+    // their key is wrong when it is only out of quota sends them hunting for nothing.
+    let error = '';
+    try { error = (await res.json()).Error || ''; } catch (e) { /* non-JSON body */ }
+    return /limit/i.test(error) ? { status: 'limit', fromServer: true } : { status: 'badkey' };
+  }
   if (!res.ok) return { status: 'error', message: 'HTTP ' + res.status };
 
   const json = await res.json();
@@ -195,6 +201,10 @@ async function lookup(title, year) {
       if (result === null) result = { status: 'nomatch' };
     }
 
+    if (result.status === 'limit' && result.fromServer) {
+      await chrome.storage.local.set({ quota: { date: todayStamp(), n: DAILY_LIMIT } });
+    }
+
     // Don't cache transient states; a bad key or a blown quota is fixable.
     if (result.status === 'ok' || result.status === 'nomatch') {
       await writeCache(key, result);
@@ -231,5 +241,9 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   return false;
 });
 
-// Clicking the toolbar icon opens settings — the only UI this thing has.
-chrome.action.onClicked.addListener(() => chrome.runtime.openOptionsPage());
+// First install: land on the setup page instead of leaving people to find it.
+chrome.runtime.onInstalled.addListener(async (details) => {
+  if (details.reason !== 'install') return;
+  if (await getApiKey()) return;
+  chrome.runtime.openOptionsPage();
+});

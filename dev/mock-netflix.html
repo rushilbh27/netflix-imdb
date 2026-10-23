@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mock Netflix: for testing badges without an account</title>
+<!--
+  A stand-in for the Netflix browse page: same hooks content.js looks for
+  (a[href*="/watch/"], data-uia attributes), fictional titles, canned ratings.
+    npx http-server .   or   python3 -m http.server
+    open  /dev/mock-netflix.html            (key saved)
+          /dev/mock-netflix.html?key=none   (first-run state: "Set up" badges + nudge)
+  In the console, try:  chrome.storage.local.set({ apiKey: 'a1b2c3d4' })
+-->
+<link rel="stylesheet" href="../styles.css">
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #141414; color: #fff; font: 400 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .nav { display: flex; align-items: center; gap: 24px; height: 68px; padding: 0 4%; background: linear-gradient(#000a, transparent); }
+  .nav b { color: #e50914; font-size: 26px; letter-spacing: -1px; }
+  .nav span { color: #e5e5e5; font-size: 14px; }
+  .row { padding: 0 4%; margin: 18px 0 34px; }
+  .row h2 { margin: 0 0 10px; font-size: 20px; font-weight: 700; color: #e5e5e5; }
+  .slider { display: grid; grid-auto-flow: column; grid-auto-columns: 232px; gap: 6px; overflow: hidden; }
+  .title-card { position: relative; }
+  .title-card-container { position: relative; width: 232px; aspect-ratio: 16 / 9; border-radius: 4px; overflow: hidden; background: #222; }
+  /* Deliberately greedy: real pages have rules like this, and the badge must survive them. */
+  .title-card-container a { display: block; width: 100%; height: 100%; }
+  .boxart-container, .boxart-container img { display: block; width: 100%; height: 100%; }
+
+  /* the preview modal, shown inline so the detail panel can be seen without opening anything */
+  .previewModal--container { width: 760px; max-width: 92%; margin: 0 4%; border-radius: 8px; overflow: hidden; background: #181818; box-shadow: 0 10px 40px #000a; }
+  .previewModal--player { position: relative; aspect-ratio: 16 / 7; background: linear-gradient(135deg, #2b2147, #7a3a5c 55%, #e08a4b); }
+  .previewModal--player img { position: absolute; left: 6%; bottom: 14%; height: 34%; }
+  .previewModal--info { padding: 18px 6% 26px; }
+  .previewModal--detailsMetadata { display: flex; gap: 14px; align-items: center; color: #bcbcbc; }
+  .previewModal--detailsMetadata .match { color: #46d369; font-weight: 700; }
+  .previewModal--synopsis { margin-top: 10px; color: #d2d2d2; max-width: 56ch; }
+</style>
+</head>
+<body>
+
+<div class="nav"><b>N</b><span>Home</span><span>TV Shows</span><span>Movies</span><span>New &amp; Popular</span></div>
+
+<div class="row"><h2>Popular on this mock</h2><div class="slider" id="r1"></div></div>
+<div class="row"><h2>Hard cases</h2><div class="slider" id="r2"></div></div>
+
+<div class="row">
+  <h2>Detail view</h2>
+  <div class="previewModal--container" data-uia="previewModal--container">
+    <div class="previewModal--player">
+      <img data-uia="previewModal--player-titleTreatment-logo" alt="Midnight Orchard" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='60'%3E%3Ctext x='0' y='44' font-family='Georgia' font-size='40' font-weight='700' fill='white'%3EMidnight Orchard%3C/text%3E%3C/svg%3E">
+    </div>
+    <div class="previewModal--info">
+      <div class="previewModal--detailsMetadata" data-uia="previewModal--detailsMetadata">
+        <span class="match">98% Match</span><span data-uia="videoMetadata--container">2023</span><span>1h 52m</span><span>HD</span>
+      </div>
+      <p class="previewModal--synopsis">A night-shift orchard keeper finds the trees have been counting the people who walk past them.</p>
+    </div>
+  </div>
+</div>
+
+<script src="stub-chrome.js"></script>
+<script>
+  // Posters are drawn, not fetched. The title sits on the art like Netflix's own fallback.
+  const poster = (title, hue) => {
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='464' height='261'>
+      <defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+        <stop offset='0' stop-color='hsl(${hue},55%,32%)'/><stop offset='1' stop-color='hsl(${(hue + 50) % 360},60%,14%)'/></linearGradient></defs>
+      <rect width='464' height='261' fill='url(#g)'/>
+      <text x='24' y='140' font-family='Georgia,serif' font-size='34' font-weight='700' fill='white' fill-opacity='.92'>${title.replace(/&/g, '&amp;')}</text></svg>`;
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+  };
+
+  const fill = (id, titles) => {
+    const el = document.getElementById(id);
+    titles.forEach(([title, hue], i) => {
+      const slug = 81000000 + Math.floor(Math.random() * 999999);
+      el.insertAdjacentHTML('beforeend',
+        `<div class="title-card"><div class="title-card-container">
+           <a href="/watch/${slug}?tctx=1%2C${i}" aria-label="${title}">
+             <div class="boxart-container"><img alt="${title}" src="${poster(title, hue)}"></div>
+           </a></div></div>`);
+    });
+  };
+
+  fill('r1', [['Midnight Orchard', 265], ['The Long Quiet', 200], ['Glass Hours: Season 2', 300], ['Paper Satellites', 30], ['Harbor Lights', 190], ['Velvet Static', 340]]);
+  fill('r2', [['Cold Open', 15], ['Brand New Release', 120], ['Saltwater Kings', 210], ['Untitled Thing', 60], ['Some Other Show', 280], ['Midnight Orchard', 265]]);
+</script>
+<script src="../content.js"></script>
+</body>
+</html>

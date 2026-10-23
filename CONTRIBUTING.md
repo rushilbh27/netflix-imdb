@@ -30,7 +30,15 @@ card detection work, something is off — open an issue first.
 
 ## Testing a change
 
-There is no automated suite — Netflix needs a logged-in session. Check manually:
+There is no automated suite, since Netflix needs a logged-in session. For anything visual,
+start with the mock page, which needs no account (see "Try it without Netflix" in the README):
+
+```bash
+python3 -m http.server 8787
+# then open localhost:8787/dev/mock-netflix.html
+```
+
+Then check on real Netflix before opening the PR:
 
 - [ ] Badges appear on row cards on the browse page
 - [ ] Badges appear after scrolling (lazy loading still fires)
